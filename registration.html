@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Самый горячий кофе</title>
+	
+	<style type="text/css">
+	
+	.okno
+	{
+	background: #F6EEDB;
+	padding: 50px 100px;
+	background-size:cover;
+	color: #B22222;
+	font-size: 18px
+	}
+	
+	.zakaz
+	{
+	background: #F6EEDB;
+
+	background-size:cover;
+	color: #B22222;
+	font-size: 18px
+	}
+	
+	</style>
+	
+</head>
+<body>
+	<a  href="https://m117kovl.github.io/">
+    <p> На главную</p>
+  </a>
+	<b class="zakaz"> Форма регистрации: <br><br> </b>
+	<form class="okno" action="" method="GET">
+		Логин: <br>
+		<input name="login" type="text" size="20" maxlength="40"> <br>
+		Пароль: <br>
+		<input name="pass" type="text" size="20" maxlength="40"> <br>
+		E-mail: <br>
+		<input name="mail" type="text" size="20" maxlength="40"> <br>
+		Род занятий: <br>
+		<input type="radio" name="status" value="pupil">Школьник<br>
+		<input type="radio" name="status" value="student">Студент<br>
+		<input type="radio" name="status" value="worker">Рабочий<br>
+		<input type="radio" name="status" value="pensioner">Пенсионер<br>
+		Регион: <br>
+		<select name="region[]" multiple>
+			<option value="1"> Москва </option>
+			<option value="2" selected> Югра </option>
+			<option value="3"> Тюменская область </option>
+			<option value="4"> Другой регион </option>
+		</select> <br>
+		Несколько слов о себе: <br>
+		<textarea name="about_you" rows="5" cols="30"></textarea><br>
+		Я хочу получать новости по электронной почте: <input type="checkbox" name="news"><br>
+		<input type="submit" value="Зарегистрироваться"/>
+		<input type="hidden" name="H" value="1"
+		</form>
+		
+		
+		<?php
+		//обработка данных формы на стороне сервера 
+		if ($_GET["H"!='')
+		{
+			echo("Уважаемый");
+			echo($_GET["login"]);
+			echo("! Вы зарегистрированы. На адрес");
+			echo($_GET["mail"]);
+			echo(" направлено уведомление. Ваш род занятий - ");
+			switch($_GET["status"])
+			{
+				case "pupil":
+					echo "школьник.";  break;
+				case "student":
+					echo "студент.";  break;
+				case "worker":
+					echo "рабочий.";  break;
+				case "pensioner":
+					echo "пенсионер.";  break;
+			}
+		
+		//обработка списка с множественным выбором
+		if(isset($_GET['region']))
+		{
+			echo("Вы прожииваете в регионе:");
+			foreach($_GET['region'] as $region)
+			switch($region)
+			{
+				case "1":
+					echo "Москва.";  break;
+				case "2":
+					echo "Югра.";  break;
+				case "3":
+					echo "Тюменская область.";  break;
+				case "4":
+					echo "Другой регион.";  break;
+			}
+		}
+		echo("Вы оставили о себе следующую информацию:");
+		echo($_GET["about_you"]);
+		echo(".");
+		if ($_GET["news")!='') echo ("Вы подписаны на рассылку по электронной почте:");
+		}
+		?>
+</body>
+</html>
